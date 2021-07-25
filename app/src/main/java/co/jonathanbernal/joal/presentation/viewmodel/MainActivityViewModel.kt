@@ -1,12 +1,14 @@
-package co.jonathanbernal.joal.view
+package co.jonathanbernal.joal.presentation.viewmodel
 
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.jonathanbernal.joal.R
 import co.jonathanbernal.joal.domain.Product
 import co.jonathanbernal.joal.domain.UseCase.GetProductListUseCase
 import co.jonathanbernal.joal.ext.addTo
+import co.jonathanbernal.joal.presentation.view.ProductsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +19,7 @@ class MainActivityViewModel @Inject constructor(
 ) : ViewModel(){
 
     var productsToShow: MutableLiveData<List<Product>> = MutableLiveData()
+    var listAdapter: ProductsAdapter? = null
     val productList = ArrayList<Product>()
     val disposables = CompositeDisposable()
 
@@ -51,5 +54,20 @@ class MainActivityViewModel @Inject constructor(
             }
             .addTo(disposables)
     }
+
+    fun setData(list: List<Product>) {
+        listAdapter?.setProductList(list)
+    }
+
+    fun getProduct(position: Int): Product?{
+        val products: MutableLiveData<List<Product>> = productsToShow
+        return productsToShow.value?.get(position)
+    }
+
+    fun getRecyclerProductAdapter():ProductsAdapter?{
+        listAdapter = ProductsAdapter(this, R.layout.cell_product)
+        return listAdapter
+    }
+
 
 }
