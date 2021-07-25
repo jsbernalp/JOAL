@@ -1,12 +1,14 @@
-package co.jonathanbernal.joal.view
+package co.jonathanbernal.joal.presentation.viewmodel
 
-import android.annotation.SuppressLint
+
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.jonathanbernal.joal.R
 import co.jonathanbernal.joal.domain.Product
 import co.jonathanbernal.joal.domain.UseCase.GetProductListUseCase
 import co.jonathanbernal.joal.ext.addTo
-import com.google.firebase.database.DatabaseReference
+import co.jonathanbernal.joal.presentation.view.ProductsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,9 +18,11 @@ class MainActivityViewModel @Inject constructor(
     private val getProductListUseCase: GetProductListUseCase
 ) : ViewModel(){
 
+    var productsToShow: MutableLiveData<List<Product>> = MutableLiveData()
+    var listAdapter: ProductsAdapter? = null
+    val productList = ArrayList<Product>()
     val disposables = CompositeDisposable()
 
-    @SuppressLint("CheckResult")
     fun getProducts(){
         getProductListUseCase.execute()
             .subscribeOn(Schedulers.io())
@@ -27,16 +31,18 @@ class MainActivityViewModel @Inject constructor(
                 when(it){
                 is GetProductListUseCase.Result.Success->{
                     if (it.list.exists()){
-                        Log.e("MainActivityViewModel","respuesta correcta ${it.list.children}")
+                        productList.clear()
                         val snapshot = it.list.children
+                        Log.e("MainActivityViewModel","respuesta correcta $snapshot")
                         snapshot.forEach {child->
-                            val id = child.child("id").value.toString()
-                            val nombre = child.child("nombre").value.toString()
-                            val product = Product(id,nombre)
-                            Log.e("MainActivityViewModel","este es el producto = $product")
+                            val product = child.getValue(Product::class.java)
+                            product?.let { it1 -> productList.add(it1) }
                         }
+                        productsToShow.postValue(productList)
                     }else{
                         Log.e("MainActivityViewModel","respuesta correcta pero no tiene datos")
+                        productList.clear()
+                        productsToShow.postValue(productList)
                     }
                 }
                 is GetProductListUseCase.Result.Failure->{
@@ -48,5 +54,20 @@ class MainActivityViewModel @Inject constructor(
             }
             .addTo(disposables)
     }
+
+    fun setData(list: List<Product>) {
+        listAdapter?.setProductList(list)
+    }
+
+    fun getProduct(position: Int): Product?{
+        val products: MutableLiveData<List<Product>> = productsToShow
+        return productsToShow.value?.get(position)
+    }
+
+    fun getRecyclerProductAdapter():ProductsAdapter?{
+        listAdapter = ProductsAdapter(this, R.layout.cell_product)
+        return listAdapter
+    }
+
 
 }
