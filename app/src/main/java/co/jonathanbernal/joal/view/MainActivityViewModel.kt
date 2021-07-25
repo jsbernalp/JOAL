@@ -43,7 +43,7 @@ class MainActivityViewModel @Inject constructor(
                     Log.e("MainActivityViewModel","error en la peticion")
 
                 }
-                else ->  Log.e("MainActivityViewModel","error desconocido")
+                else ->  Log.e("MainActivityViewModel","error desconocido, por favor revisar")
             }
             }
             .addTo(disposables)
