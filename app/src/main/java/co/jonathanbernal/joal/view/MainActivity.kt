@@ -2,6 +2,9 @@ package co.jonathanbernal.joal.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.jonathanbernal.joal.R
 import dagger.android.AndroidInjection
@@ -31,6 +34,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     private fun setupBinding() {
         mainActivityViewModel = ViewModelProviders.of(this,viewModelFactory).get(mainActivityViewModel::class.java)
         mainActivityViewModel.getProducts()
+        mainActivityViewModel.productsToShow.observe(this,{
+            Log.e("MainActivity","listado de productos en las vista $it")
+        })
     }
 
 
