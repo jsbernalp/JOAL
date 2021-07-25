@@ -1,6 +1,6 @@
 package co.jonathanbernal.joal.di
 
-import co.jonathanbernal.joal.MainActivity
+import co.jonathanbernal.joal.view.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
