@@ -61,7 +61,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun getProduct(position: Int): Product?{
         val products: MutableLiveData<List<Product>> = productsToShow
-        return productsToShow.value?.get(position)
+        return products.value?.get(position)
     }
 
     fun getRecyclerProductAdapter():ProductsAdapter?{
