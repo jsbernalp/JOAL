@@ -7,16 +7,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "co.jonathanbernal.joal"
         minSdkVersion 24
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -107,5 +108,7 @@ dependencies {
 
     implementation "android.arch.navigation:navigation-fragment:$navigationVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
+
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }
