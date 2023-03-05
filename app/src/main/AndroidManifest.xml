@@ -10,11 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Joal">
-        <activity android:name=".presentation.view.MainActivity"
+        <activity
+            android:name="co.jonathanbernal.joallib.presentation.view.MainActivity"
             android:exported="true">
         </activity>
         <service
-            android:name=".service.JoalFirebaseMessagingService"
+            android:name="co.jonathanbernal.joallib.service.JoalFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

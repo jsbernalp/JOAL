@@ -3,9 +3,9 @@ package co.jonathanbernal.joal.di
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import co.jonathanbernal.joal.domain.Repository.IProductRepository
-import co.jonathanbernal.joal.domain.Repository.ProductRepository
-import co.jonathanbernal.joal.presentation.viewmodel.ViewModelFactory
+import co.jonathanbernal.joallib.domain.Repository.IProductRepository
+import co.jonathanbernal.joallib.domain.Repository.ProductRepository
+import co.jonathanbernal.joallib.presentation.viewmodel.ViewModelFactory
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
