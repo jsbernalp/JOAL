@@ -1,4 +1,4 @@
-package co.jonathanbernal.joal.di
+package co.jonathanbernal.joallib.di
 
 import co.jonathanbernal.joallib.presentation.view.MainActivity
 import dagger.Module
