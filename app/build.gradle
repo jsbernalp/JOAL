@@ -47,11 +47,21 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:4.11.0"
 
     //Firebase
-    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
-
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.1'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+    compileOnly('com.google.firebase:firebase-analytics-ktx:19.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+    compileOnly('com.google.firebase:firebase-messaging:22.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+    compileOnly('com.google.firebase:firebase-database-ktx:20.0.1') {
+        exclude group: 'org.json', module: 'json'
+    }
+    compileOnly('com.google.firebase:firebase-storage-ktx:20.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+    compileOnly("com.firebaseui:firebase-ui-storage:4.3.2") {
+        exclude group: 'org.json', module: 'json'
+    }
 
 
     implementation 'com.androidhuman.rxfirebase2:firebase-database-kotlin:16.0.3.0'
